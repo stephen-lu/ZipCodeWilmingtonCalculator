@@ -158,42 +158,49 @@ public class CalculatorApp {
         double memory = 0;
         String mode = "decimal";
         String unitsMode = "radians";
+        Scanner scanner = null;
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to ZipCode Calculator");
+        try {
+            scanner = new Scanner(System.in);
+            System.out.println("Welcome to ZipCode Calculator");
 
-        while (true) {
-            displayResult(state, mode);
-            System.out.print("> ");
-            String userInput = scanner.nextLine().trim();
-            if (userInput.isEmpty()) continue;
+            while (true) {
+                displayResult(state, mode);
+                System.out.print("> ");
+                String userInput = scanner.nextLine().trim();
+                if (userInput.isEmpty()) continue;
 
-            String[] tokens = userInput.split("\\s+");
-            List<String> list = new ArrayList<>(List.of(tokens));
-            int length = list.size();
+                String[] tokens = userInput.split("\\s+");
+                List<String> list = new ArrayList<>(List.of(tokens));
+                int length = list.size();
 
-            if (length == 1) {
-                String command = list.get(0);
-                switch (command) {
-                    case "quit" -> {
-                        System.out.println("Done Calculating.");
-                        return;
+                if (length == 1) {
+                    String command = list.get(0);
+                    switch (command) {
+                        case "quit" -> {
+                            System.out.println("Done Calculating.");
+                            return;
+                        }
+                        case "clear" -> state = 0;
+                        case "MC" -> memory = 0;
+                        case "M+" -> memory += state;
+                        case "MRC" -> state = memory;
+                        case "switchMode" -> mode = switchMode(mode);
+                        case "switchUnitsMode" -> unitsMode = switchUnitsMode(unitsMode);
+                        case "e" -> state = calc.constantE();
+                        case "pi" -> state = calc.constantPi();
+                        default -> state = operatorLoop(list, calc, state);
                     }
-                    case "clear" -> state = 0;
-                    case "MC" -> memory = 0;
-                    case "M+" -> memory += state;
-                    case "MRC" -> state = memory;
-                    case "switchMode" -> mode = switchMode(mode);
-                    case "switchUnitsMode" -> unitsMode = switchUnitsMode(unitsMode);
-                    case "e" -> state = calc.constantE();
-                    case "pi" -> state = calc.constantPi();
-                    default -> state = operatorLoop(list, calc, state);
+                } else {
+                    state = operatorLoop(list, calc, state);
                 }
-            } else {
-                state = operatorLoop(list, calc, state);
-            }
 
-            System.out.println();
+                System.out.println();
+            }
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 }
