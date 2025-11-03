@@ -11,7 +11,7 @@ public class Console {
     }
 
     // ---------------------- displayResult ----------------------
-    public static void displayResult(double state, String mode) {
+    private static void displayResult(double state, String mode) {
         switch (mode) {
             case "decimal" -> System.out.println(state);
             case "binary" -> System.out.println("0b" + Long.toBinaryString((long) state));
@@ -22,7 +22,7 @@ public class Console {
     }
 
     // ---------------------- switchMode ----------------------
-    public static String switchMode(String mode) {
+    private static String switchMode(String mode) {
         switch (mode) {
             case "decimal" -> {
                 System.out.println("Switching to hexadecimal");
@@ -48,7 +48,7 @@ public class Console {
     }
 
     // ---------------------- switchUnitsMode ----------------------
-    public static String switchUnitsMode(String mode) {
+    private static String switchUnitsMode(String mode) {
         switch (mode) {
             case "radians" -> {
                 System.out.println("Switching to degrees");
@@ -66,7 +66,7 @@ public class Console {
     }
 
     // ---------------------- operatorLoop ----------------------
-    public static double operatorLoop(List<String> list, Calculator calc, double state) {
+    private static double operatorLoop(List<String> list, Calculator calc, double state) {
         int length = list.size();
         if (length == 0) {
             return state;
