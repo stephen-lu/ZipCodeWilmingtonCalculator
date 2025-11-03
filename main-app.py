@@ -40,15 +40,15 @@ def switchUnitsMode(mode):
             return "radians"
 
 def operatorLoop(list, calc, state):
+    length = len(list)
+    if length == 0:
+        return state
+    i = 0
     try:
         state = float(list[0])
         list.pop(0)
     except ValueError:
         pass
-    length = len(list)
-    if length == 0:
-        return state
-    i = 0
     while i < length:
         if state == "Err":
             return state
