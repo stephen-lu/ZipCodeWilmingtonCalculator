@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Console {
     // ---------------------- contructor ----------------------
-    public Console(){
+    public Console() {
         
     }
 
@@ -167,7 +167,7 @@ public class Console {
                 displayResult(state, mode);
                 System.out.print("> ");
                 String userInput = scanner.nextLine().trim();
-                if (userInput.isEmpty()) continue;
+                if (userInput.isEmpty()) { System.out.println(); continue; }
 
                 String[] tokens = userInput.split("\\s+");
                 List<String> list = new ArrayList<>(List.of(tokens));
